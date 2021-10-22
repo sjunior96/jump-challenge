@@ -1,6 +1,7 @@
 import api from '../../Services/api';
 import * as types from './ParksActionTypes';
 import { format } from 'date-fns';
+import { toast } from 'react-toastify';
 
 export const getParks = (search) => {
     const params = {
@@ -16,6 +17,7 @@ export const getParks = (search) => {
             })
             .catch((error) => {
                 console.log(error);
+                toast.error("Erro ao carregar os registros com os dados informados!");
             });
     };
 };
@@ -30,6 +32,7 @@ export const getFilters = () => {
             })
             .catch((error) => {
                 console.log(error);
+                toast.error("Erro ao obter a lsita de situações disponíveis!");
             });
     };
 };

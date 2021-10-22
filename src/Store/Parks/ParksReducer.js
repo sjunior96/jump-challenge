@@ -30,7 +30,7 @@ const initialSearchField = {
 };
 
 const initialState = {
-	parks: [{ "serviceOrderId": "3039AJA645620211011133334", "plate": "AJA6456", "typePrice": "Carro", "entryDateTime": "2021-10-11 13:33:34", "exitDateTime": "2021-10-11 13:33:38", "situationId": 2, "situationName": "Fora do p\u00e1tio", "amount": "5.00", "amountServices": "0.00", "services": [], "period": { "y": 0, "m": 0, "d": 0, "h": 0, "i": 0, "s": 4, "minutes": 0 }, "amountTotal": 5 }],
+	parks: [],
 	selectedPark: initialPark,
 	operationSituations: [],
 	searchFields: initialSearchField

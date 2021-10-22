@@ -72,6 +72,7 @@ const CustomTable = ({
             </TableContainer>
             {data.length > 0 && (
                 <TablePagination
+                    sx={{ display: "flex", justifyContent: "center" }}
                     labelRowsPerPage="Linhas"
                     rowsPerPageOptions={[5, 10, 25, 100]}
                     component="div"
