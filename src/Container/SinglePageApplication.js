@@ -9,6 +9,7 @@ import { getFilters, getParks, handleSearchFieldsChange, setSelectedPark } from 
 import Table from '../Components/Table/Table';
 import CustomModal from '../Components/CustomModal/CustomModal';
 import { format } from 'date-fns';
+import CustomAlert from '../Components/CustomAlert/CustomAlert';
 
 const AppContainer = styled(Box)(({ theme }) => ({
     [theme.breakpoints.up("sm")]: {
@@ -63,6 +64,18 @@ const SinglePageApplication = () => {
         dispatch(setSelectedPark(park));
     };
 
+    const getErrorMessage = (searchFields) => {
+        let msg = `Sem resultados para a pesquisa entre o dia `;
+        msg += `${format(searchFields.startDate, "dd/MM/yyyy")}`;
+        msg += ` e o dia `;
+        msg += `${format(searchFields.endDate, "dd/MM/yyyy")} `;
+        msg += `${searchFields.situationId !== "" ?
+            operationSituations.filter((operationSituation) => operationSituation.situationId === searchFields.situationId)[0].situationName :
+            "com qualquer situação de operação"}`;
+
+        return msg;
+    };
+
     const columns = [
         { id: 'plate', label: 'Placa', width: 100, align: 'center', },
         {
@@ -109,7 +122,8 @@ const SinglePageApplication = () => {
         {
             text: "Período",
             field: "period",
-            valueGetter: (params) => `${params && formatPeriod(params).join(", ")}`
+            /* valueGetter: (params) => `${(params && params !== null) && formatPeriod(params).join(", ")}` */
+            valueGetter: (params) => params !== null ? formatPeriod(params).join(", ") : ""
         },
         {
             text: "Id da OS",
@@ -122,17 +136,17 @@ const SinglePageApplication = () => {
         {
             text: "Valor",
             field: "amount",
-            valueGetter: (params) => `${params && parseFloat(params).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
+            valueGetter: (params) => `${parseFloat(params).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
         },
         {
             text: "Valor dos Serviços",
             field: "amountServices",
-            valueGetter: (params) => `${params && parseFloat(params).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
+            valueGetter: (params) => `${parseFloat(params).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
         },
         {
             text: "Valor Total",
             field: "amountTotal",
-            valueGetter: (params) => `${params && parseFloat(params).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
+            valueGetter: (params) => `${parseFloat(params).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
         },
     ];
 
@@ -180,6 +194,13 @@ const SinglePageApplication = () => {
                 data={parks}
                 rowClickAction={(row) => handleModalOpen(row)}
             />
+
+            {parks.length < 1 && (
+                <CustomAlert
+                    msg={getErrorMessage(searchFields)}
+                    type="error"
+                />
+            )}
 
             <CustomModal
                 labels={labels}
