@@ -1,25 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import { LocalizationProvider } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import React from "react";
+import SinglePageApplication from "./Container/SinglePageApplication";
+import ptBRLocale from 'date-fns/locale/pt-BR';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+	return (
+		<LocalizationProvider dateAdapter={AdapterDateFns} locale={ptBRLocale}>
+			<SinglePageApplication />
+		</LocalizationProvider>
+	);
+};
 
 export default App;
