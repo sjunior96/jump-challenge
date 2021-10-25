@@ -122,7 +122,6 @@ const SinglePageApplication = () => {
         {
             text: "Período",
             field: "period",
-            /* valueGetter: (params) => `${(params && params !== null) && formatPeriod(params).join(", ")}` */
             valueGetter: (params) => params !== null ? formatPeriod(params).join(", ") : ""
         },
         {
